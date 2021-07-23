@@ -9,6 +9,10 @@ class StoriesController < ApplicationController
 
   # GET /stories/1
   # GET /stories/1.json
+  def my_pictories
+    @stories = Story.where(user_id: current_user.id)
+  end
+  
   def show
   end
 
@@ -25,6 +29,7 @@ class StoriesController < ApplicationController
   # POST /stories.json
   def create
     @story = Story.new(story_params)
+    @story.user_id = current_user.id
 
     respond_to do |format|
       if @story.save
